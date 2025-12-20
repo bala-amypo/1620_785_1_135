@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.User;
 
 @Repository
-public interface SubscriptionRepository extends JpaRepository<User,Long>{
+public interface SubscriptionRepository extends JpaRepository<Subscription,Long>{
 
 }
