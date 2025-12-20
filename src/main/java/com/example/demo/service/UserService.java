@@ -8,5 +8,5 @@ public interface UserService {
 
     List<User> getAllUsers();
     User UpdateData(Long id,User entity);
-    String UserDelete(Long id)
+    String UserDelete(Long id);
 }
