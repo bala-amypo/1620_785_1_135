@@ -22,18 +22,21 @@ public class UserController{
     }
     @GetMapping("/get")
     public List<User> getval1(){
+    List<User> getAllUsers();
         return ser.getAllUser();
     }
     @DeleteMapping("/delete/{id}")
     public String del1(@PathVariable Long id){
-        return ser.DeleteData1(id);
+    String UserDelete(Long id)
+        return ser.UserDelete(id);
     }
     @GetMapping("/find/{id}")
     public User find1(@PathVariable Long id){
-        return ser.getData1(id);
+        return ser.getUserById(id);
     }
     @PutMapping("/put/{id}")
     public User putval1(@PathVariable Long id,@RequestBody User entity){
-        return ser.updateData1(id,entity);
+    User UpdateData(Long id,User entity);
+        return ser.UpdateData(id,entity);
     }
 }
