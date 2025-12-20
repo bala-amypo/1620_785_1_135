@@ -3,9 +3,9 @@ import java.util.List;
 import com.example.demo.entity.StudentEntity;
 
 public interface StudentService{
-        StudentEntity postdata(StudentEntity stu);
-        List<StudentEntity>getAllData();
+        User postdata(User stu);
+        List<User>getAllData();
         String DeleteData(int id);
-        StudentEntity getData(int id);
+        User getData(int id);
         StudentEntity updateData(int id,StudentEntity entity);
 }
