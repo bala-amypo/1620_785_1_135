@@ -16,6 +16,8 @@ public class UserServiceImpl implements UserService{
     public User registerUser(User user){
         return used.save(use);  
     }
+
+    
     @Override
     public List<User>getAllData1(){
         return used.findAll();
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService{
         return "Deleted successfully";
     }
     @Override
-    public User getData1(Long id){
+    public User getUserById(Long id){
     return used.findById(id).orElse(null);
     }
     @Override
