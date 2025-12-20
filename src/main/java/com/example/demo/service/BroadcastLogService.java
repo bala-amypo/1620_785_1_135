@@ -1,8 +1,8 @@
-import java.util.List;
+// import java.util.List;
 
-public interface BroadcastLogService {
+// public interface BroadcastLogService {
 
-    void logBroadcast(BroadcastLog log);
+//     void logBroadcast(BroadcastLog log);
 
-    List<BroadcastLog> getLogsForEvent(Long eventId);
-}
+//     List<BroadcastLog> getLogsForEvent(Long eventId);
+// }

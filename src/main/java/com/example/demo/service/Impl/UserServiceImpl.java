@@ -32,11 +32,12 @@ public class UserServiceImpl implements UserService{
     }
 
 
-    
+
     @Override
     public User getUserById(Long id){
     return used.findById(id).orElse(null);
     }
+    
     @Override
     public User UpdateData(Long id,User entity){
         if(used.existsById(id)){
