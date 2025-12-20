@@ -7,4 +7,6 @@ public interface UserService {
     User getUserById(Long id);       // throw "User not found"
 
     List<User> getAllUsers();
+    User UpdateData(Long id,User entity);
+    String UserDelete(Long id)
 }

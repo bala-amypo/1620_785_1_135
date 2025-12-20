@@ -19,11 +19,11 @@ public class UserServiceImpl implements UserService{
 
     
     @Override
-    public List<User>getAllData1(){
+    public List<User> getAllUsers(){
         return used.findAll();
     }
     @Override
-    public String DeleteData1(@PathVariable Long id){
+    public String UserDelete(Long id){
         used.deleteById(id);
         return "Deleted successfully";
     }
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
     return used.findById(id).orElse(null);
     }
     @Override
-    public User updateData1(Long id,User entity){
+    public User UpdateData(Long id,User entity){
         if(used.existsById(id)){
             entity.setId(id);
             return used.save(entity);
