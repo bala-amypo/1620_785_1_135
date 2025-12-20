@@ -12,9 +12,10 @@ import com.example.demo.service.UserService;
 public class UserServiceImpl implements UserService{
 
     @Autowired UserRepository used;
+
     @Override
     public User registerUser(User user){
-        return used.save(use);  
+        return used.save(user);  
     }
 
     
@@ -22,11 +23,16 @@ public class UserServiceImpl implements UserService{
     public List<User> getAllUsers(){
         return used.findAll();
     }
+
+
     @Override
     public String UserDelete(Long id){
         used.deleteById(id);
         return "Deleted successfully";
     }
+
+
+    
     @Override
     public User getUserById(Long id){
     return used.findById(id).orElse(null);
