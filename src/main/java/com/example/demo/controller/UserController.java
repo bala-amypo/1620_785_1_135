@@ -18,7 +18,7 @@ public class UserController{
     @Autowired  UserService ser;
     @PostMapping("/register")
     public User sendData(@RequestBody User stu){
-        return ser.postData1(stu);
+        return ser.registerUser(stu);
     }
     @GetMapping("/get")
     public List<User> getval(){
