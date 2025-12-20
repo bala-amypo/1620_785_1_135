@@ -22,12 +22,11 @@ public class UserController{
     }
     @GetMapping("/get")
     public List<User> getval1(){
-    List<User> getAllUsers();
+
         return ser.getAllUsers();
     }
     @DeleteMapping("/delete/{id}")
     public String del1(@PathVariable Long id){
-    String UserDelete(Long id)
         return ser.UserDelete(id);
     }
     @GetMapping("/find/{id}")
@@ -36,7 +35,6 @@ public class UserController{
     }
     @PutMapping("/put/{id}")
     public User putval1(@PathVariable Long id,@RequestBody User entity){
-    User UpdateData(Long id,User entity);
         return ser.UpdateData(id,entity);
     }
 }
