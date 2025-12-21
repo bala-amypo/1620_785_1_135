@@ -1,8 +1,8 @@
+package com.example.demo.service;
+
+import com.example.demo.entity.BroadcastLog;
 import java.util.List;
 
 public interface BroadcastLogService {
-
-    void logBroadcast(BroadcastLog log);
-
-    List<BroadcastLog> getLogsForEvent(Long eventId);
+    List<BroadcastLog> getLogsForUpdate(Long updateId);
 }

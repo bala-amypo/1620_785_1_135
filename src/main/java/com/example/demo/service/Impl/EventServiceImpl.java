@@ -10,33 +10,27 @@ import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
 
-    private final EventRepository eventRepository;
+    private final EventRepository repo;
 
-    public EventServiceImpl(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    public EventServiceImpl(EventRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
     public Event createEvent(Event event) {
-        event.setActive(true);
-        return eventRepository.save(event);
+        return repo.save(event);
     }
 
-    @Override
     public Event getEventById(Long id) {
-        return eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+        return repo.findById(id).orElseThrow();
     }
 
-    @Override
     public List<Event> getAll() {
-        return eventRepository.findAll();
+        return repo.findAll();
     }
 
-    @Override
     public void deactivateEvent(Long id) {
-        Event event = getEventById(id);
-        event.setActive(false);
-        eventRepository.save(event);
+        Event e = getEventById(id);
+        e.setActive(false);
+        repo.save(e);
     }
 }

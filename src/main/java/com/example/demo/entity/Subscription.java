@@ -1,37 +1,23 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity
-@Table(
-    name = "subscriptions",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "event_id"})
-    }
-)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Subscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Event event;
 
-    /* -------------------- Audit Fields -------------------- */
+    @ManyToOne
+    private User user;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime subscribedAt;
-
-    /* -------------------- Lifecycle Hooks -------------------- */
-
-    @PrePersist
-    protected void onCreate() {
-        this.subscribedAt = LocalDateTime.now();
-    }
+    public Long getId() { return id; }
+    public Event getEvent() { return event; }
+    public void setEvent(Event event) { this.event = event; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }
