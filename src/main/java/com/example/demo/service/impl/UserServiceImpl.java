@@ -25,5 +25,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    // Example: add other methods defined in UserService here
+    @Override
+    public User updateData(Long id, User updatedUser) {
+        Optional<User> existingUser = userRepository.findById(id);
+        if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            user.setName(updatedUser.getName());
+            user.setEmail(updatedUser.getEmail());
+            user.setPassword(updatedUser.getPassword());
+            return userRepository.save(user);
+        } else {
+            return null; // or throw an exception
+        }
+    }
 }

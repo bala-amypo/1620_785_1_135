@@ -8,6 +8,7 @@ import com.example.demo.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,12 +25,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Optional<User> user = userRepository.findById(userId);
         Optional<Subscription> subscription = subscriptionRepository.findById(subscriptionId);
 
-        if (user.isPresent() && subscription.isPresent()) {
-            // Placeholder logic: implement your real subscription check
-            return true; // or false depending on your database check
-        }
-        return false;
+        return user.isPresent() && subscription.isPresent();
     }
 
-    // Example: add other methods defined in SubscriptionService here
+    @Override
+    public List<Subscription> getSubscriptionsByUser(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            return subscriptionRepository.findByUserId(userId); // make sure this method exists in your repo
+        } else {
+            return List.of(); // empty list if user not found
+        }
+    }
 }
