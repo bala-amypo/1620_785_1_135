@@ -1,40 +1,41 @@
 package com.example.demo.controller;
 
-import java.util.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
-import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-public class UserController{
-    @Autowired  UserService ser;
-    @PostMapping("/register")
-    public User sendData1(@RequestBody User stu){
-        return ser.registerUser(stu);
-    }
-    @GetMapping("/get")
-    public List<User> getval1(){
+@RequestMapping("/users")
+public class UserController {
 
-        return ser.getAllUsers();
+    @Autowired
+    private UserService ser;
+
+    @PostMapping("/register")
+    public User registerUser(@RequestBody User user) {
+        return ser.registerUser(user); // Make sure UserService has this method
     }
-    @DeleteMapping("/delete/{id}")
-    public String del1(@PathVariable Long id){
-        return ser.UserDelete(id);
+
+    @GetMapping("/")
+    public List<User> getAllUsers() {
+        return ser.getAllUsers(); // Make sure UserService has this method
     }
-    @GetMapping("/find/{id}")
-    public User find1(@PathVariable Long id){
-        return ser.getUserById(id);
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return ser.getUserById(id); // Make sure UserService has this method
     }
-    @PutMapping("/put/{id}")
-    public User putval1(@PathVariable Long id,@RequestBody User entity){
-        return ser.UpdateData(id,entity);
+
+    @PutMapping("/{id}")
+    public User updateData(@PathVariable Long id, @RequestBody User user) {
+        return ser.updateData(id, user); // Make sure UserService has this method
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        return ser.userDelete(id); // Make sure UserService has this method returning String
     }
 }

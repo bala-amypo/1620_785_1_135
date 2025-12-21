@@ -1,47 +1,24 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.service.SubscriptionService;
 import com.example.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class UserServiceImpl implements UserService {
+public class SubscriptionServiceImpl implements SubscriptionService {
 
-    private final UserRepository repo;
+    @Autowired
+    private UserService userService;
 
-    public UserServiceImpl(UserRepository repo) {
-        this.repo = repo;
-    }
+    public void subscribeUser(User user) {
+        // Example: using getters of User entity
+        String name = user.getName();
+        String email = user.getEmail();
+        String password = user.getPassword();
 
-    @Override
-    public User registerUser(User user) {
-        return repo.save(user);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return repo.findAll();
-    }
-
-    @Override
-    public User getUserById(Long id) {
-        return repo.findById(id).orElse(null);
-    }
-
-    @Override
-    public User UpdateData(Long id, User user) {
-        User existing = repo.findById(id).orElse(null);
-        if (existing == null) {
-            return null;
-        }
-
-        existing.setName(user.getName());
-        existing.setEmail(user.getEmail());
-        existing.setPassword(user.getPassword());
-
-        return repo.save(existing);
+        // Add your subscription logic here
+        System.out.println("Subscribed: " + name + " (" + email + ")");
     }
 }
