@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.EventRequest;
+// import com.example.demo..EventRequest;
 import com.example.demo.model.Event;
 import com.example.demo.service.EventService;
 import io.swagger.v3.oas.annotations.tags.Tag;
