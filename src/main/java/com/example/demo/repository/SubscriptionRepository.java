@@ -1,10 +1,15 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Subscription;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface SubscriptionRepository extends JpaRepository<Subscription,Long>{
+import java.util.List;
 
+public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
+
+    List<Subscription> findByUserId(Long userId);
+
+    void deleteByUserIdAndSubscriptionId(Long userId, Long subscriptionId);
+
+    boolean existsByUserIdAndSubscriptionId(Long userId, Long subscriptionId);
 }
