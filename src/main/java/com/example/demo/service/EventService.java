@@ -1,14 +1,14 @@
-// import java.util.List;
+import java.util.List;
 
-// public interface EventService {
+public interface EventService {
 
-//     Event createEvent(Event event);
+    Event createEvent(Event event);
 
-//     Event updateEvent(Long id, Event event);
+    Event updateEvent(Long id, Event event);
 
-//     Event getEventById(Long id);
+    Event getEventById(Long id);
 
-//     List<Event> getActiveEvents();
+    List<Event> getActiveEvents();
 
-//     void deactivateEvent(Long id);
-// }
+    void deactivateEvent(Long id);
+}

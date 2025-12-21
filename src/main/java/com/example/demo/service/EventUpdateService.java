@@ -1,9 +1,9 @@
-// import java.util.List;
+import java.util.List;
 
-// public interface EventUpdateService {
+public interface EventUpdateService {
 
-//     EventUpdate publishUpdate(EventUpdate update);
-//     // save update, then trigger broadcast
+    EventUpdate publishUpdate(EventUpdate update);
+    // save update, then trigger broadcast
 
-//     List<EventUpdate> getUpdatesForEvent(Long eventId);
-// }
+    List<EventUpdate> getUpdatesForEvent(Long eventId);
+}
