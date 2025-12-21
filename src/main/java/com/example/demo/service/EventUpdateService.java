@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface EventUpdateService {
     EventUpdate createUpdate(Long eventId, String message);
-    List<EventUpdate> getUpdatesForEvent(Long eventId);
+    List<EventUpdate> getUpdatesByEvent(Long eventId);
+    EventUpdate getUpdateById(Long id);
 }
