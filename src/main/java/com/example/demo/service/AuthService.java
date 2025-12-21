@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.LoginRequest;
+import com.example.demo.controller.RegisterRequest;
+
 public interface AuthService {
-    void register(Object request);
-    void login(Object request);
+    String register(RegisterRequest request);
+    String login(LoginRequest request);
 }
