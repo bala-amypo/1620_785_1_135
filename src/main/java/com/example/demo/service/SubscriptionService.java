@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface SubscriptionService {
     Subscription subscribe(Long eventId, Long userId);
-    void unsubscribe(Long eventId, Long userId);
+    String unsubscribe(Long eventId, Long userId);
     List<Subscription> getSubscriptionsByUser(Long userId);
     boolean isSubscribed(Long eventId, Long userId);
 }
