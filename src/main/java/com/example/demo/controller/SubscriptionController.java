@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.entity.Subscription;
 
 import com.example.demo.model.Subscription;
 import com.example.demo.service.SubscriptionService;

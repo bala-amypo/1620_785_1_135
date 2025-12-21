@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.entity.EventUpdate;
 
 // import com.example.demo.dto.EventUpdateRequest;
 import com.example.demo.model.EventUpdateController;
