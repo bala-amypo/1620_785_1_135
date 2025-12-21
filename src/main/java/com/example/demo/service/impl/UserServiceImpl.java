@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public void UserDelete(Long id) {
-        // delete logic
+    public String UserDelete(Long id) {
+        return "User deleted successfully";
     }
 }
