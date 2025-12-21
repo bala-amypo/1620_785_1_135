@@ -10,19 +10,13 @@ import java.util.List;
 @Service
 public class BroadcastLogServiceImpl implements BroadcastLogService {
 
-    private final BroadcastLogRepository broadcastLogRepository;
+    private final BroadcastLogRepository repo;
 
-    public BroadcastLogServiceImpl(BroadcastLogRepository broadcastLogRepository) {
-        this.broadcastLogRepository = broadcastLogRepository;
+    public BroadcastLogServiceImpl(BroadcastLogRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public BroadcastLog save(BroadcastLog log) {
-        return broadcastLogRepository.save(log);
-    }
-
-    @Override
     public List<BroadcastLog> getLogsForUpdate(Long updateId) {
-        return broadcastLogRepository.findByEventUpdateId(updateId);
+        return repo.findByEventUpdateId(updateId);
     }
 }

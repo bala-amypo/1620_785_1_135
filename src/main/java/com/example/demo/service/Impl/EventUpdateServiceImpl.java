@@ -12,25 +12,24 @@ import java.util.List;
 @Service
 public class EventUpdateServiceImpl implements EventUpdateService {
 
-    private final EventUpdateRepository eventUpdateRepository;
-    private final EventRepository eventRepository;
+    private final EventRepository eventRepo;
+    private final EventUpdateRepository updateRepo;
 
-    public EventUpdateServiceImpl(EventUpdateRepository eventUpdateRepository,
-                                  EventRepository eventRepository) {
-        this.eventUpdateRepository = eventUpdateRepository;
-        this.eventRepository = eventRepository;
+    public EventUpdateServiceImpl(EventRepository eventRepo,
+                                  EventUpdateRepository updateRepo) {
+        this.eventRepo = eventRepo;
+        this.updateRepo = updateRepo;
     }
 
-    @Override
-    public EventUpdate createUpdate(Long eventId, EventUpdate update) {
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
-        update.setEvent(event);
-        return eventUpdateRepository.save(update);
+    public EventUpdate createUpdate(Long eventId, String message) {
+        Event event = eventRepo.findById(eventId).orElseThrow();
+        EventUpdate u = new EventUpdate();
+        u.setEvent(event);
+        u.setMessage(message);
+        return updateRepo.save(u);
     }
 
-    @Override
     public List<EventUpdate> getUpdatesForEvent(Long eventId) {
-        return eventUpdateRepository.findByEventId(eventId);
+        return updateRepo.findByEventId(eventId);
     }
 }
