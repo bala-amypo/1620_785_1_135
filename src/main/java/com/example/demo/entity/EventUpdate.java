@@ -9,14 +9,11 @@ public class EventUpdate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Event event;
-
     private String message;
 
     public Long getId() { return id; }
-    public Event getEvent() { return event; }
-    public void setEvent(Event event) { this.event = event; }
+    public void setId(Long id) { this.id = id; }
+
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }
 }
