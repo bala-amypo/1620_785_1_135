@@ -15,7 +15,7 @@ public class BroadcastLogService {
 
     private final BroadcastLogService broadcastService;
 
-    public BroadcastController(BroadcastLogService broadcastService) {
+    public BroadcastLogService(BroadcastLogService broadcastService) {
         this.broadcastService = broadcastService;
     }
 

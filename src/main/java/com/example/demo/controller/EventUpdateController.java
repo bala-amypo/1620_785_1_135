@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 // import com.example.demo.dto.EventUpdateRequest;
-import com.example.demo.model.EventUpdate;
+import com.example.demo.model.EventUpdateController;
 import com.example.demo.service.EventUpdateService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class EventUpdateController {
 
     // POST / – Publish update
     @PostMapping
-    public ResponseEntity<EventUpdate> publishUpdate(
+    public ResponseEntity<EventUpdateController> publishUpdate(
             @RequestBody EventUpdateRequest request) {
         return ResponseEntity.ok(eventUpdateService.publishUpdate(request));
     }
