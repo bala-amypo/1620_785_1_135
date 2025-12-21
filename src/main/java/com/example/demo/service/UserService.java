@@ -11,5 +11,7 @@ public interface UserService {
 
     User getUserById(Long id);
 
-    User UpdateData(Long id, User user);
+    User updateData(Long id, User user);
+
+    String userDelete(Long id); // return String, not void
 }

@@ -1,24 +1,35 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.Subscription;
 import com.example.demo.entity.User;
+import com.example.demo.repository.SubscriptionRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.SubscriptionService;
-import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Autowired
-    private UserService userService;
+    private SubscriptionRepository subscriptionRepository;
 
-    public void subscribeUser(User user) {
-        // Example: using getters of User entity
-        String name = user.getName();
-        String email = user.getEmail();
-        String password = user.getPassword();
+    @Autowired
+    private UserRepository userRepository;
 
-        // Add your subscription logic here
-        System.out.println("Subscribed: " + name + " (" + email + ")");
+    @Override
+    public boolean isSubscribed(Long userId, Long subscriptionId) {
+        Optional<User> user = userRepository.findById(userId);
+        Optional<Subscription> subscription = subscriptionRepository.findById(subscriptionId);
+
+        if (user.isPresent() && subscription.isPresent()) {
+            // Placeholder logic: implement your real subscription check
+            return true; // or false depending on your database check
+        }
+        return false;
     }
+
+    // Example: add other methods defined in SubscriptionService here
 }
