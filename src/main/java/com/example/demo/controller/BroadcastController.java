@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.BroadcastLog;
-import com.example.demo.service.BroadcastService;
+import com.example.demo.service.BroadcastLogService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +11,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/broadcasts")
 @Tag(name = "Broadcasts")
-public class BroadcastController {
+public class BroadcastLogService {
 
-    private final BroadcastService broadcastService;
+    private final BroadcastLogService broadcastService;
 
-    public BroadcastController(BroadcastService broadcastService) {
+    public BroadcastController(BroadcastLogService broadcastService) {
         this.broadcastService = broadcastService;
     }
 
