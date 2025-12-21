@@ -1,56 +1,22 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;   
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
-import org.springframework.web.bind.annotation.PathVariable;
-import com.example.demo.service.UserService;                
+import com.example.demo.service.UserService;
+import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-    @Autowired UserRepository used;
+    private final UserRepository userRepository;
 
-    @Override
-    public User registerUser(User user){
-        return used.save(user);  
-    }
-
-    
-    @Override
-    public List<User> getAllUsers(){
-        return used.findAll();
-    }
-
-
-    @Override
-    public String UserDelete(Long id){
-        used.deleteById(id);
-        return "Deleted successfully";
-    }
-
-
-
-    @Override
-    public User getUserById(Long id){
-    return used.findById(id).orElse(null);
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public User UpdateData(Long id,User entity){
-        if(used.existsById(id)){
-            entity.setId(id);
-            return used.save(entity);
-        } 
-        return null;
+    public User register(User user) {
+        // ❌ DO NOT set ID manually
+        return userRepository.save(user);
     }
 }
-
-
-
-
-
-
-
