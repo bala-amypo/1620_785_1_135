@@ -1,17 +1,14 @@
 package com.example.demo.controller;
 
-// import com.example.demo..EventRequest;
-import com.example.demo.model.Event;
+import com.example.demo.dto.EventRequest;
+import com.example.demo.entity.Event;
 import com.example.demo.service.EventService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/events")
-@Tag(name = "Events")
+@RequestMapping("/events")
 public class EventController {
 
     private final EventService eventService;
@@ -20,36 +17,26 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    // POST / – Create event
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody EventRequest request) {
-        return ResponseEntity.ok(eventService.createEvent(request));
+    public Event createEvent(@RequestBody EventRequest request) {
+        Event event = new Event();
+        event.setTitle(request.getTitle());
+        event.setDescription(request.getDescription());
+        return eventService.createEvent(event);
     }
 
-    // PUT /{id} – Update event
-    @PutMapping("/{id}")
-    public ResponseEntity<Event> updateEvent(
-            @PathVariable Long id,
-            @RequestBody EventRequest request) {
-        return ResponseEntity.ok(eventService.updateEvent(id, request));
-    }
-
-    // GET /{id} – Get event
     @GetMapping("/{id}")
-    public ResponseEntity<Event> getEvent(@PathVariable Long id) {
-        return ResponseEntity.ok(eventService.getEventById(id));
+    public Event getEvent(@PathVariable Long id) {
+        return eventService.getEventById(id);
     }
 
-    // GET /active – List active events
-    @GetMapping("/active")
-    public ResponseEntity<List<Event>> getActiveEvents() {
-        return ResponseEntity.ok(eventService.getActiveEvents());
+    @GetMapping
+    public List<Event> getAllEvents() {
+        return eventService.getAll();
     }
 
-    // PATCH /{id}/deactivate – Deactivate
-    @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<Void> deactivateEvent(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public void deactivateEvent(@PathVariable Long id) {
         eventService.deactivateEvent(id);
-        return ResponseEntity.noContent().build();
     }
 }

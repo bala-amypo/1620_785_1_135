@@ -18,6 +18,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event createEvent(Event event) {
+        event.setActive(true);
         return eventRepository.save(event);
     }
 
@@ -28,20 +29,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllEvents() {
+    public List<Event> getAll() {
         return eventRepository.findAll();
     }
 
     @Override
-    public Event updateEvent(Long id, Event updatedEvent) {
-        Event existing = getEventById(id);
-        existing.setTitle(updatedEvent.getTitle());
-        existing.setDescription(updatedEvent.getDescription());
-        return eventRepository.save(existing);
-    }
-
-    @Override
-    public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
+    public void deactivateEvent(Long id) {
+        Event event = getEventById(id);
+        event.setActive(false);
+        eventRepository.save(event);
     }
 }

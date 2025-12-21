@@ -1,9 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Event;
+import com.example.demo.entity.Event;
+
 import java.util.List;
 
 public interface EventService {
-    Event create(Event event);
+
+    Event createEvent(Event event);
+
+    Event getEventById(Long id);
+
     List<Event> getAll();
+
+    void deactivateEvent(Long id);
 }
