@@ -13,7 +13,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService ser;
+ UserService ser;
 
     // Create/Register a new user
     @PostMapping("/register")
