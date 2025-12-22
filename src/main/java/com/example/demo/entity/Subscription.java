@@ -10,23 +10,25 @@ public class Subscription {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "channel_id", nullable = false)
+    @JoinColumn(name = "channel_id")
     private Channel channel;
+
+    private String userEmail;
+
+    public Subscription() {
+    }
+
+    public Subscription(Channel channel, String userEmail) {
+        this.channel = channel;
+        this.userEmail = userEmail;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Channel getChannel() {
@@ -35,5 +37,13 @@ public class Subscription {
 
     public void setChannel(Channel channel) {
         this.channel = channel;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

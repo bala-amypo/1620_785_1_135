@@ -1,11 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Subscription;
-import java.util.List;
 
 public interface SubscriptionService {
-    Subscription subscribe(Long eventId, subscription Subscription);
-    String unsubscribe(Long eventId, Long userId);
-    List<Subscription> getSubscriptionsByUser(Long userId);
-    boolean isSubscribed(Long eventId, Long userId);
+
+    Subscription subscribe(Long channelId, String userEmail);
 }
