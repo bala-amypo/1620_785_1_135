@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
-public interface BroadcastLogService {
-    void triggerBroadcast(Long updateId);
+public interface BroadcastService {
+    void broadcastUpdate(Long eventUpdateId);
+    void recordDelivery(Long eventUpdateId, Long userId, boolean success);
+    List<BroadcastLog> getLogsForUpdate(Long eventUpdateId);
 }
