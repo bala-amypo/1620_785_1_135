@@ -32,7 +32,6 @@ public class EventUpdateServiceImpl implements EventUpdateService {
         
         EventUpdate update = new EventUpdate();
         update.setEvent(event);
-        // Set other fields from request
         return eventUpdateRepository.save(update);
     }
 }

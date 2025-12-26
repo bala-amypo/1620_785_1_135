@@ -39,12 +39,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, User user) {
+    public User updateUser(Long id, User userDetails) {
         return userRepository.findById(id)
-            .map(existing -> {
-                existing.setEmail(user.getEmail());
-                existing.setRole(user.getRole());
-                return userRepository.save(existing);
+            .map(user -> {
+                user.setEmail(userDetails.getEmail());
+                user.setRole(userDetails.getRole());
+                if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+                    user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+                }
+                return userRepository.save(user);
             })
             .orElseThrow(() -> new RuntimeException("User not found"));
     }

@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.BroadcastLog;
+import com.example.demo.entity.DeliveryStatus;
 import com.example.demo.repository.BroadcastLogRepository;
 import com.example.demo.service.BroadcastLogService;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,7 @@ public class BroadcastLogServiceImpl implements BroadcastLogService {
 
     @Override
     public void triggerBroadcast(Long eventUpdateId) {
-        // Implementation for broadcast trigger
         List<BroadcastLog> logs = broadcastLogRepository.findByEventUpdateId(eventUpdateId);
-        // Process broadcast
     }
 
     @Override
@@ -32,7 +31,7 @@ public class BroadcastLogServiceImpl implements BroadcastLogService {
         List<BroadcastLog> logs = broadcastLogRepository.findByEventUpdateId(eventUpdateId);
         for (BroadcastLog log : logs) {
             if (log.getSubscriber().getId().equals(userId)) {
-                log.setDeliveryStatus(success ? com.example.demo.entity.DeliveryStatus.DELIVERED : com.example.demo.entity.DeliveryStatus.FAILED);
+                log.setDeliveryStatus(success ? DeliveryStatus.DELIVERED : DeliveryStatus.FAILED);
                 broadcastLogRepository.save(log);
                 break;
             }
