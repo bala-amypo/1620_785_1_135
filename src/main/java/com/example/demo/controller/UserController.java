@@ -1,21 +1,27 @@
 package com.example.demo.controller;
 
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
 
-    // Constructor injection (BEST PRACTICE)
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public String user() {
-        return userService.getUser();
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return userService.updateUser(id, user);
     }
 }
