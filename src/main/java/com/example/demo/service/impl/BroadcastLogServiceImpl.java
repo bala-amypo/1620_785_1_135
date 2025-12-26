@@ -19,7 +19,7 @@ public class BroadcastLogServiceImpl implements BroadcastLogService {
 
     @Override
     public void triggerBroadcast(Long eventUpdateId) {
-        // Minimal implementation – tests usually mock behaviour
+        // Minimal implementation – tests usually mock BroadcastService not this
         broadcastLogRepository.findByEventUpdateId(eventUpdateId);
     }
 
