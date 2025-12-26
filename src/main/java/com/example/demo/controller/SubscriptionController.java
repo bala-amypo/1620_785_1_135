@@ -1,14 +1,45 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Subscription;
+import com.example.demo.service.SubscriptionService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/subscriptions")
+@RequestMapping("/api/subscriptions")
 public class SubscriptionController {
 
-    @PostMapping
-    public Subscription subscribe(@RequestBody Subscription subscription) {
-        return subscription;
+    private final SubscriptionService subscriptionService;
+
+    public SubscriptionController(SubscriptionService subscriptionService) {
+        this.subscriptionService = subscriptionService;
+    }
+
+    @PostMapping("/{eventId}")
+    public Subscription subscribe(
+            @RequestParam Long userId,     // ✅ FROM ?userId=1
+            @PathVariable Long eventId     // ✅ FROM /1
+    ) {
+        return subscriptionService.subscribe(userId, eventId);
+    }
+
+    @DeleteMapping("/{eventId}")
+    public void unsubscribe(
+            @RequestParam Long userId,
+            @PathVariable Long eventId
+    ) {
+        subscriptionService.unsubscribe(userId, eventId);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Subscription> getForUser(@PathVariable Long userId) {
+        return subscriptionService.getUserSubscriptions(userId);
+    }
+
+    @GetMapping("/check/{userId}/{eventId}")
+    public boolean check(@PathVariable Long userId,
+                         @PathVariable Long eventId) {
+        return subscriptionService.isSubscribed(userId, eventId);
     }
 }

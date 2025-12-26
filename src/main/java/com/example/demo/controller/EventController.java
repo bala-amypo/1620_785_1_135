@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.EventRequest;
 import com.example.demo.entity.Event;
 import com.example.demo.service.EventService;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/api/events")
 public class EventController {
 
     private final EventService eventService;
@@ -18,25 +17,26 @@ public class EventController {
     }
 
     @PostMapping
-    public Event createEvent(@RequestBody EventRequest request) {
-        Event event = new Event();
-        event.setTitle(request.getTitle());
-        event.setDescription(request.getDescription());
+    public Event create(@RequestBody Event event) {
         return eventService.createEvent(event);
     }
 
+    @PutMapping("/{id}")
+    public Event update(@PathVariable Long id, @RequestBody Event event) {
+        return eventService.updateEvent(id, event);
+    }
+
     @GetMapping("/{id}")
-    public Event getEvent(@PathVariable Long id) {
-        return eventService.getEventById(id);
+    public Event get(@PathVariable Long id) {
+        return eventService.getById(id);
     }
 
-    @GetMapping
-    public List<Event> getAllEvents() {
-        return eventService.getAll();
+    public List<Event> getActive() {
+        return eventService.getActiveEvents();
     }
 
-    @DeleteMapping("/{id}")
-    public void deactivateEvent(@PathVariable Long id) {
+    @PatchMapping("/{id}/deactivate")
+    public void deactivate(@PathVariable Long id) {
         eventService.deactivateEvent(id);
     }
 }
