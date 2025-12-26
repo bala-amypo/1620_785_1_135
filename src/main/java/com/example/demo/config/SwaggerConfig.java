@@ -29,8 +29,8 @@
 
 package com.example.demo.config;
 
-import io.swagger.v3.oas.model.OpenAPI;
-import io.swagger.v3.oas.model.servers.Server;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -44,8 +44,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .servers(List.of(
                         // If your app runs on port 9005
-                        new Server()
-                                .url("https://9145.pro604cr.amypo.ai/")
+                        new Server().url("https://9145.pro604cr.amypo.ai/")
                 ));
     }
 }
