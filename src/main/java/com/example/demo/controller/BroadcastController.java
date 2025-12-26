@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.BroadcastLogService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/broadcast")
+@RequestMapping("/api/broadcasts")
 public class BroadcastController {
 
     private final BroadcastLogService broadcastLogService;
@@ -13,8 +14,9 @@ public class BroadcastController {
         this.broadcastLogService = broadcastLogService;
     }
 
-    @PostMapping("/{updateId}")
-    public void trigger(@PathVariable Long updateId) {
-        broadcastLogService.triggerBroadcast(updateId);
+    @PostMapping("/{eventUpdateId}")
+    public ResponseEntity<Void> triggerBroadcast(@PathVariable Long eventUpdateId) {
+        broadcastLogService.triggerBroadcast(eventUpdateId);
+        return ResponseEntity.ok().build();
     }
 }
