@@ -1,49 +1,37 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.Instant;
 
 @Entity
+@Table(name = "subscriptions")
 public class Subscription {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @ManyToOne
-    @JoinColumn(name = "channel_id")
-    private Channel channel;
-
-    private String userEmail;
-
-    public Subscription() {
+    @JoinColumn(name = "user_id")
+    private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
+    
+    private Instant subscribedAt;
+    
+    @PrePersist
+    public void onCreate() {
+        subscribedAt = Instant.now();
     }
-
-    public Subscription(Channel channel, String userEmail) {
-        this.channel = channel;
-        this.userEmail = userEmail;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
+    
+    // Getters/Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    public Event getEvent() { return event; }
+    public void setEvent(Event event) { this.event = event; }
+    public Instant getSubscribedAt() { return subscribedAt; }
+    public void setSubscribedAt(Instant subscribedAt) { this.subscribedAt = subscribedAt; }
 }
