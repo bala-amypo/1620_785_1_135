@@ -1,11 +1,13 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.User;
-import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
+
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -13,16 +15,16 @@ public class UserServiceImpl {
         this.userRepository = userRepository;
     }
 
-    public User updateUser(Long id, String username) {
-        User user = userRepository.findById(id)
+    @Override
+    public User updateUser(Long id, User user) {
+
+        User updatedUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.setUsername(username);
-        User updatedUser = userRepository.save(user);
+        // ✅ USE EMAIL (NOT USERNAME)
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setRole(user.getRole());
 
-        // ✅ FIXED: use existing getter
-        System.out.println(updatedUser.getUsername());
-
-        return updatedUser;
+        return userRepository.save(updatedUser);
     }
 }
