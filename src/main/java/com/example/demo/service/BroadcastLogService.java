@@ -3,22 +3,21 @@ package com.example.demo.service;
 import com.example.demo.entity.BroadcastLog;
 import java.util.List;
 
-public interface BroadcastLogService {
+public interface BroadcastService {
 
     /**
      * Trigger a broadcast for a given event update.
-     * This is what BroadcastController is calling.
+     * The test class will likely mock this method.
      */
-    void triggerBroadcast(Long eventUpdateId);
+    void broadcastUpdate(Long eventUpdateId);
 
     /**
-     * Return all broadcast logs for a given event update.
-     */
-    List<BroadcastLog> getLogsForUpdate(Long eventUpdateId);
-
-    /**
-     * Record delivery status for a specific user/subscriber
-     * for a given event update.
+     * Record delivery status for a specific user.
      */
     void recordDelivery(Long eventUpdateId, Long userId, boolean success);
+
+    /**
+     * Get all logs for a given event update.
+     */
+    List<BroadcastLog> getLogsForUpdate(Long eventUpdateId);
 }
