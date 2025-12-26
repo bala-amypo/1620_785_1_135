@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    // Use the field name `active`, not `isActive`
+    // match the field name "active" in Event
     List<Event> findByActiveTrue();
 }
