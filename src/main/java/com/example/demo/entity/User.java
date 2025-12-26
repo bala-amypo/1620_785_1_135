@@ -17,17 +17,12 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role; // ROLE_USER, ROLE_ADMIN
+    private String role;
 
     public User() {
     }
 
-    public User(String email, String password, String role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
+    // ---------- GETTERS ----------
     public Long getId() {
         return id;
     }
@@ -42,5 +37,18 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    // ---------- SETTERS (IMPORTANT) ----------
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
