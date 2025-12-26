@@ -7,20 +7,18 @@ public interface BroadcastLogService {
 
     /**
      * Trigger a broadcast for a given event update.
-     *
-     * The tests will mock this interface; they only care that
-     * the method exists with this signature.
+     * This is what BroadcastController is calling.
      */
-    void broadcastUpdate(Long eventUpdateId);
+    void triggerBroadcast(Long eventUpdateId);
+
+    /**
+     * Return all broadcast logs for a given event update.
+     */
+    List<BroadcastLog> getLogsForUpdate(Long eventUpdateId);
 
     /**
      * Record delivery status for a specific user/subscriber
      * for a given event update.
      */
     void recordDelivery(Long eventUpdateId, Long userId, boolean success);
-
-    /**
-     * Return all broadcast logs for a given event update.
-     */
-    List<BroadcastLog> getLogsForUpdate(Long eventUpdateId);
 }

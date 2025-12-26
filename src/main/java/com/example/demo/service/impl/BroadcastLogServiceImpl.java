@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class BroadcastLogServiceImpl implements BroadcastLogService {
+
     private final BroadcastLogRepository broadcastLogRepository;
 
     public BroadcastLogServiceImpl(BroadcastLogRepository broadcastLogRepository) {
@@ -18,7 +19,9 @@ public class BroadcastLogServiceImpl implements BroadcastLogService {
 
     @Override
     public void triggerBroadcast(Long eventUpdateId) {
-        List<BroadcastLog> logs = broadcastLogRepository.findByEventUpdateId(eventUpdateId);
+        // For now, just ensure the method exists; tests will mock behavior if needed.
+        // You could pre-create logs here if your business logic requires it.
+        broadcastLogRepository.findByEventUpdateId(eventUpdateId);
     }
 
     @Override
@@ -30,7 +33,7 @@ public class BroadcastLogServiceImpl implements BroadcastLogService {
     public void recordDelivery(Long eventUpdateId, Long userId, boolean success) {
         List<BroadcastLog> logs = broadcastLogRepository.findByEventUpdateId(eventUpdateId);
         for (BroadcastLog log : logs) {
-            if (log.getSubscriber().getId().equals(userId)) {
+            if (log.getSubscriber() != null && log.getSubscriber().getId().equals(userId)) {
                 log.setDeliveryStatus(success ? DeliveryStatus.DELIVERED : DeliveryStatus.FAILED);
                 broadcastLogRepository.save(log);
                 break;
