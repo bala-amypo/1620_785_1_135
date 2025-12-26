@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Event;
-import java.util.List;
+import com.example.demo.entity.User;
+import java.util.Optional;
 
-public interface EventService {
-    Event createEvent(Event event);
-    Event updateEvent(Long id, Event event);
-    List<Event> getActiveEvents();
-    void deactivateEvent(Long id);
-    Event getById(Long id);
+public interface UserService {
+    User register(User user);
+    User findByEmail(String email);
+    Optional<User> getUserById(Long id);
+    User updateUser(Long id, User user);
 }
