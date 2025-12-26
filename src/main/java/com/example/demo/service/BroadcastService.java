@@ -5,19 +5,9 @@ import java.util.List;
 
 public interface BroadcastService {
 
-    /**
-     * Trigger a broadcast for a given event update.
-     * This is what the test class uses.
-     */
-    void broadcastUpdate(Long eventUpdateId);
+    void broadcastUpdate(Long updateId);
 
-    /**
-     * Record delivery status for a specific user.
-     */
-    void recordDelivery(Long eventUpdateId, Long userId, boolean success);
+    List<BroadcastLog> getLogsForUpdate(Long updateId);
 
-    /**
-     * Get all logs for a given event update.
-     */
-    List<BroadcastLog> getLogsForUpdate(Long eventUpdateId);
+    void recordDelivery(Long updateId, Long subscriberId, boolean failed);
 }
