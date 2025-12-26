@@ -20,7 +20,7 @@ public class User {
         return id;
     }
     public String getRole() {
-        return id;
+        return role;
     }
 
     public void setId(Long id) {
@@ -50,6 +50,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.mail = password;
+        this.password = password;
     }
 }
