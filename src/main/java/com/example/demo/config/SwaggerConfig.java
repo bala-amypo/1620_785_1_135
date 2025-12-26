@@ -45,8 +45,7 @@ public class SwaggerConfig {
                 .servers(List.of(
                         // If your app runs on port 9005
                         new Server()
-                                .url("https://9549.408procr.amypo.ai/")
-                                .description("Production Server")
+                                .url("https://9145.pro604cr.amypo.ai/")
                 ));
     }
 }
