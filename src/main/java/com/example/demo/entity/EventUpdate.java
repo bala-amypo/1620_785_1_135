@@ -1,36 +1,51 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import java.time.Instant;
 
+import jakarta.persistence.*;
+
 @Entity
-@Table(name = "event_updates")
 public class EventUpdate {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
     @ManyToOne
-    @JoinColumn(name = "event_id")
     private Event event;
-    
-    @Enumerated(EnumType.STRING)
-    private SeverityLevel severityLevel = SeverityLevel.LOW;
+    private String updateContent;
+    private String updatedType;
     
     private Instant timestamp;
-    
-    @PrePersist
+    private SeverityLevel severityLevel;
+
     public void onCreate() {
-        timestamp = Instant.now();
+        this.timestamp = Instant.now();
+        if (this.severityLevel == null) {
+            this.severityLevel = SeverityLevel.LOW;
+        }
     }
-    
-    // Getters/Setters
+
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public Event getEvent() { return event; }
     public void setEvent(Event event) { this.event = event; }
-    public SeverityLevel getSeverityLevel() { return severityLevel; }
-    public void setSeverityLevel(SeverityLevel severityLevel) { this.severityLevel = severityLevel; }
+
     public Instant getTimestamp() { return timestamp; }
-    public void setTimestamp(Instant timestamp) { this.timestamp = Instant.now(); }
+
+    public SeverityLevel getSeverityLevel() { return severityLevel; }
+    public void setSeverityLevel(SeverityLevel severityLevel) {
+        this.severityLevel = severityLevel;
+    }
+
+    public EventUpdate(Event event, String updateContent, String updatedType) {
+        this.event = event;
+        this.updateContent = updateContent;
+        this.updatedType = updatedType;
+    }
+
+    public EventUpdate() {
+    }
+    
+
+
 }

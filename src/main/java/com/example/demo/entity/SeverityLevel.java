@@ -1,5 +1,5 @@
 package com.example.demo.entity;
 
 public enum SeverityLevel {
-    LOW, MEDIUM, HIGH, CRITICAL
+    LOW, MEDIUM, HIGH
 }

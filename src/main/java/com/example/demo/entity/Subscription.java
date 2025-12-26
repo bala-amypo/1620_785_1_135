@@ -1,46 +1,48 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import java.time.Instant;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Subscription {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    // getters/setters
-    public Long getId() {
-        return id;
+    @Column(nullable = false)
+    private Instant subscribedAt;
+
+    @PrePersist
+    public void onCreate() {
+        this.subscribedAt = Instant.now();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
-    public void setUser(User user) {
+    public Event getEvent() { return event; }
+    public void setEvent(Event event) { this.event = event; }
+
+    public Instant getSubscribedAt() { return subscribedAt; }
+
+    public Subscription(User user, Event event) {
         this.user = user;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
         this.event = event;
     }
+
+    public Subscription() {
+    }
+
+    
 }
