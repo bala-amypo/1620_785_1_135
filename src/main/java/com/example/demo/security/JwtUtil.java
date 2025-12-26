@@ -3,35 +3,35 @@ package com.example.demo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 
-import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.function.Function;
 
 public class JwtUtil {
-    private final SecretKey secretKey;
-    private final long expirationTime;
 
-    public JwtUtil(String secret, long expirationTime) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
-        this.expirationTime = expirationTime;
+    private final String secret;
+    private final long expiration;
+
+    public JwtUtil(String secret, long expiration) {
+        this.secret = secret;
+        this.expiration = expiration;
     }
 
     public String generateToken(Long userId, String username, String role) {
         return Jwts.builder()
-            .setSubject(username)
-            .claim("userId", userId)
-            .claim("role", role)
-            .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-            .signWith(secretKey, SignatureAlgorithm.HS512)
-            .compact();
+                .setSubject(username)
+                .claim("userId", userId)
+                .claim("role", role)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
+            Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
@@ -39,32 +39,29 @@ public class JwtUtil {
     }
 
     public Long getUserIdFromToken(String token) {
-        return getClaimFromToken(token, claims -> claims.get("userId", Long.class));
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+
+        Object value = claims.get("userId");
+        return Long.valueOf(value.toString());
     }
 
     public String getRoleFromToken(String token) {
-        return getClaimFromToken(token, claims -> claims.get("role", String.class));
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.get("role", String.class);
     }
 
     public String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
-    }
-
-    // ADD THIS MISSING METHOD
-    public String extractUsername(String token) {
-        return getUsernameFromToken(token);
-    }
-
-    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaimsFromToken(token);
-        return claimsResolver.apply(claims);
-    }
-
-    private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder()
-            .setSigningKey(secretKey)
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }
