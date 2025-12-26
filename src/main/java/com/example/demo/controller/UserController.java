@@ -9,7 +9,7 @@ import com.example.demo.service.UserService;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService serService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
