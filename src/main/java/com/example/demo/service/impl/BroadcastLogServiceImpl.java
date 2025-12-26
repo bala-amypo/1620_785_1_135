@@ -17,7 +17,7 @@ public class BroadcastLogServiceImpl implements BroadcastService {
     private final SubscriptionRepository subscriptionRepository;
     private final BroadcastLogRepository broadcastLogRepository;
 
-    public BroadcastServiceImpl(EventUpdateRepository eventUpdateRepository,
+    public BroadcastLogServiceImpl(EventUpdateRepository eventUpdateRepository,
                               SubscriptionRepository subscriptionRepository,
                               BroadcastLogRepository broadcastLogRepository) {
         this.eventUpdateRepository = eventUpdateRepository;
