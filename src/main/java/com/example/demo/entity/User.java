@@ -10,7 +10,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    // Use email as username
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -19,7 +20,17 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    // ===== Getters & Setters =====
+    // ---------- Constructors ----------
+    public User() {
+    }
+
+    public User(String email, String password, String role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
