@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // ✅ USE EMAIL (NOT USERNAME)
         updatedUser.setEmail(user.getEmail());
         updatedUser.setRole(user.getRole());
 
