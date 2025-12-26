@@ -1,16 +1,14 @@
 package com.example.demo.security;
 
-import java.util.Collection;
-import java.util.Collections;
-
+import com.example.demo.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.demo.entity.User;
+import java.util.Collection;
+import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
-
     private final User user;
 
     public CustomUserDetails(User user) {
@@ -19,8 +17,9 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(
-                new SimpleGrantedAuthority(user.getRole())
+        // FIX: Convert Role enum to String
+        return Collections.singletonList(
+            new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
         );
     }
 
@@ -31,7 +30,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail(); // email is username
+        return user.getEmail();
     }
 
     @Override
@@ -52,5 +51,13 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return user.getId();
+    }
+
+    public com.example.demo.entity.Role getRole() {
+        return user.getRole();
     }
 }

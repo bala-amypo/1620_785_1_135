@@ -50,6 +50,11 @@ public class JwtUtil {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    // ADD THIS MISSING METHOD
+    public String extractUsername(String token) {
+        return getUsernameFromToken(token);
+    }
+
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);

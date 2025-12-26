@@ -51,6 +51,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<Event> getAll() {
+        return eventRepository.findAll();
+    }
+
+    @Override
     public void deactivateEvent(Long id) {
         eventRepository.findById(id)
             .ifPresentOrElse(event -> {
@@ -65,5 +70,10 @@ public class EventServiceImpl implements EventService {
     public Event getById(Long id) {
         return eventRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Event not found"));
+    }
+
+    @Override
+    public Event getEventById(Long id) {
+        return getById(id);
     }
 }
