@@ -1,30 +1,27 @@
-package com.example.demo.security;
+package com.example.demo.controller;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entity.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 
-@Service
-public class CustomUserDetailsService implements UserDetailsService {
+@RestController
+@RequestMapping("/users")
+public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService serService;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
 
-        User user = UserRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with email: " + email));
-
-        return new CustomUserDetails(user);
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return userService.updateUser(id, user);
     }
 }
