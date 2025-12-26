@@ -1,19 +1,25 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.User;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
-import java.util.Optional;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -21,8 +27,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already registered");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Email already registered"
+            );
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -30,25 +40,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
-    public User updateUser(Long id, User userDetails) {
+    public User findById(Long id) {
         return userRepository.findById(id)
-            .map(user -> {
-                user.setEmail(userDetails.getEmail());
-                user.setRole(userDetails.getRole());
-                if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
-                    user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-                }
-                return userRepository.save(user);
-            })
-            .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
