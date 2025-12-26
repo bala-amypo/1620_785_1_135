@@ -1,30 +1,29 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.Channel;
-import com.example.demo.entity.Subscription;
-import com.example.demo.repository.ChannelRepository;
-import com.example.demo.repository.SubscriptionRepository;
-import com.example.demo.service.SubscriptionService;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
+
 @Service
-public class SubscriptionServiceImpl implements SubscriptionService {
+public class UserServiceImpl implements UserService {
 
-    private final ChannelRepository channelRepository;
-    private final SubscriptionRepository subscriptionRepository;
+    private final UserRepository userRepository;
 
-    public SubscriptionServiceImpl(ChannelRepository channelRepository,
-                                   SubscriptionRepository subscriptionRepository) {
-        this.channelRepository = channelRepository;
-        this.subscriptionRepository = subscriptionRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public Subscription subscribe(Long channelId, String userEmail) {
-        Channel channel = channelRepository.findById(channelId)
-                .orElseThrow(() -> new RuntimeException("Channel not found"));
+    public User updateUser(Long id, User user) {
+        User updatedUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Subscription subscription = new Subscription(channel, userEmail);
-        return subscriptionRepository.save(subscription);
+        // ✅ FIXED: use email instead of username
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setRole(user.getRole());
+
+        return userRepository.save(updatedUser);
     }
 }
