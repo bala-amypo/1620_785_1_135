@@ -18,20 +18,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("User not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Override
     public User updateUser(Long id, User user) {
 
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("User not found with id: " + id));
+        User existingUser = getUserById(id);
 
-        // ✅ FIX: use email (NOT username)
         existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
         existingUser.setRole(user.getRole());
 
         return userRepository.save(existingUser);
