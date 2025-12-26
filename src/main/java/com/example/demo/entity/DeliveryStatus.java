@@ -1,5 +1,5 @@
 package com.example.demo.entity;
 
 public enum DeliveryStatus {
-    SENT, DELIVERED, FAILED
+    SENT, FAILED
 }
